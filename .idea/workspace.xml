@@ -7,33 +7,40 @@
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57c747a0-6d78-48b7-a32e-a4b14acf0b86" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/Executor/PtgExecutor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/OutboundTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/controller/AppController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/service/Receiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/service/Sender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/AbstractStepHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/CommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/MessageSourceUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/RequestObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/ResponseObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/StepHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/StepHandlerFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/Model.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/ModelRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/Step.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/PickToGo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/BoxLabelQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/DeliveryQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/RegisterQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/ptg.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/BaseState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/InputFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/ModelState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/StateUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/model/BadItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/model/Batch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/model/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/model/PtgState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/Executor/PtgExecutor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/controller/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/service/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/service/Receiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/service/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/service/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/AbstractStepHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/AbstractStepHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/CommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/StepHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/StepHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/ModelRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/temp/core/ModelRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/PickToGo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/PickToGo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/BoxLabelQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/BoxLabelQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/DeliveryQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/DeliveryQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/RegisterQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/process/RegisterQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ptg.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ptg.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +85,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/rakuten/ecld/wms/wombatoutbound/usecase/picktogo/model" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -93,18 +100,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process" />
       <recent name="com.rakuten.ecld.wms.wombatoutbound.temp" />
+      <recent name="com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.model" />
+      <recent name="com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process" />
       <recent name="com.rakuten.ecld.wms.wombatoutbound.temp.core" />
       <recent name="com.rakuten.ecld.wms.wombatoutbound.usecase" />
-      <recent name="com.rakuten.ecld.wms.wombatoutbound.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IntelliJ IDEA 2020.1\RakutenPro\outbound-test\src\main\java\com\rakuten\ecld\wms\wombatoutbound\usecase\picktogo\model" />
       <recent name="D:\IntelliJ IDEA 2020.1\RakutenPro\outbound-test\src\main\resources" />
       <recent name="D:\IntelliJ IDEA 2020.1\RakutenPro\outbound-test\src\main\java\com\rakuten\ecld\wms\wombatoutbound\temp" />
       <recent name="D:\IntelliJ IDEA 2020.1\RakutenPro\outbound-test\src\main\java\com\rakuten\ecld\wms\wombatoutbound\architecture\exception" />
       <recent name="D:\IntelliJ IDEA 2020.1\RakutenPro\outbound-test\src\main\java\com\rakuten\ecld\wms\wombatoutbound\architecture\" />
-      <recent name="D:\IntelliJ IDEA 2020.1\RakutenPro\outbound-test\src\main\java\com\rakuten\ecld\wms\wombatoutbound\architecture\domain\response" />
     </key>
   </component>
   <component name="RunManager">
@@ -143,7 +150,7 @@
       <workItem from="1606475887493" duration="159000" />
       <workItem from="1606908077664" duration="6537000" />
       <workItem from="1606957738534" duration="24515000" />
-      <workItem from="1607302407955" duration="69000" />
+      <workItem from="1607302407955" duration="21257000" />
     </task>
     <servers />
   </component>
@@ -155,7 +162,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -171,18 +190,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" width="1164" height="689" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1606910112227" />
-    <state x="574" y="118" width="566" height="588" key="#com.intellij.ide.util.MemberChooser" timestamp="1607007046115">
+    <state x="574" y="118" width="566" height="588" key="#com.intellij.ide.util.MemberChooser" timestamp="1607338536205">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="118" width="566" height="588" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1607007046115" />
+    <state x="574" y="118" width="566" height="588" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1607338536205" />
     <state x="388" y="90" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1606100338880">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="388" y="90" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1536.824@0.0.1536.824" timestamp="1606100338880" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607007462984">
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607333092887">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1607007462984" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1607333092887" />
     <state width="404" height="439" key="DebuggerActiveHint" timestamp="1606983125783">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -191,57 +210,65 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606214480239" />
-    <state width="1493" height="387" key="GridCell.Tab.0.bottom" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.0.bottom" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.0.center" timestamp="1607007643164">
+    <state width="1493" height="227" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.0.center" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1607007643164" />
-    <state width="1493" height="387" key="GridCell.Tab.0.left" timestamp="1607007643164">
+    <state width="1493" height="227" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.0.left" timestamp="1607350652037">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1607007643164" />
-    <state width="1493" height="387" key="GridCell.Tab.0.right" timestamp="1607007643164">
+    <state width="1493" height="227" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1607350652037" />
+    <state width="1493" height="227" key="GridCell.Tab.0.right" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1607007643164" />
-    <state width="1493" height="387" key="GridCell.Tab.1.bottom" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.1.bottom" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.1.center" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.1.center" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.1.left" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.1.left" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.1.right" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.1.right" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.2.bottom" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.2.bottom" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.2.center" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.2.center" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.2.left" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.2.left" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
-    <state width="1493" height="387" key="GridCell.Tab.2.right" timestamp="1607007643165">
+    <state width="1493" height="227" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
+    <state width="1493" height="227" key="GridCell.Tab.2.right" timestamp="1607350652038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="387" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1607007643165" />
+    <state width="1493" height="227" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1607350652038" />
     <state x="249" y="0" key="SettingsEditor" timestamp="1606100737989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606100737989" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1607302815351">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1607302815351" />
+    <state width="775" height="418" key="XDebugger.FullValuePopup" timestamp="1607350274983">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="775" height="418" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1607350274983" />
   </component>
 </project>

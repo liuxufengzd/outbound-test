@@ -3,6 +3,7 @@ package com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo;
 import com.rakuten.ecld.wms.wombatoutbound.temp.CommandHandler;
 import com.rakuten.ecld.wms.wombatoutbound.temp.StepHandlerFactory;
 import com.rakuten.ecld.wms.wombatoutbound.temp.core.Model;
+import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.model.PtgState;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process.BoxLabelQuestion;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process.DeliveryQuestion;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process.RegisterQuestion;
@@ -33,6 +34,11 @@ public class PickToGo implements CommandHandler {
     }
 
     @Override
+    public Object generateState() {
+        return new PtgState();
+    }
+
+    @Override
     public void define() {
         Model model = new Model(stepHandlerFactory);
         this.model = model
@@ -40,4 +46,6 @@ public class PickToGo implements CommandHandler {
                 .step("register-question").run(RegisterQuestion.class)
                 .step("box-label-question").run(BoxLabelQuestion.class);
     }
+
+
 }

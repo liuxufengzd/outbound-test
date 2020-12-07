@@ -5,14 +5,19 @@ import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
 public class ModelRunner {
     private final String latestStepName;
     private final RequestObject request;
+    private final Object state;
 
-    public ModelRunner(RequestObject request, String latestStepName) {
+    public ModelRunner(RequestObject request, String latestStepName, Object state) {
+        this.state = state;
         this.request = request;
         this.latestStepName = latestStepName;
     }
 
     public RequestObject run(Model model) {
-        model.findStep(latestStepName).getStepHandler().execute(request);
+        Step step = model.findStep(latestStepName);
+        if (step == null)
+            return null;
+        step.getStepHandler().execute(request,state);
         return request;
     }
 }

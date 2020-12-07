@@ -1,6 +1,5 @@
 package com.rakuten.ecld.wms.wombatoutbound.controller;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
 import com.rakuten.ecld.wms.wombatoutbound.service.Sender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +13,6 @@ public class AppController {
 
     @GetMapping("/test/{command}")
     public void startTest(@PathVariable("command") String command){
-//        if ("ptg".equals(command))
-//            ptgExecutor.execute();
-        RequestObject requestObject = new RequestObject("ptg", null, "ptg", null);
-        sender.send(requestObject);
+        sender.initSender(command);
     }
 }

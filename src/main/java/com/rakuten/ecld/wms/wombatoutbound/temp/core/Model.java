@@ -29,8 +29,6 @@ public class Model {
     Step findStep(String stepName) {
         List<Step> filteredSteps = this.steps.stream()
                 .filter(step -> step.getName().equals(stepName)).collect(Collectors.toList());
-        if (filteredSteps.size() == 0)
-            throw new RuntimeException("The step cannot be found :" + stepName);
-        return filteredSteps.get(0);
+        return filteredSteps.size() == 0 ? null : filteredSteps.get(0);
     }
 }

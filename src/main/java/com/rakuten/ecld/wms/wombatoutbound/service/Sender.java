@@ -1,8 +1,7 @@
 package com.rakuten.ecld.wms.wombatoutbound.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
+import com.rakuten.ecld.wms.wombatoutbound.temp.StateUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -25,6 +24,8 @@ public class Sender {
     private static final NioEventLoopGroup group = new NioEventLoopGroup();
     private static final EventExecutorGroup executorGroup = new DefaultEventExecutorGroup(10);
     private Channel channel;
+    private String process;
+    private Receiver receiver;
     @Value("${test.hostname}")
     private String hostName;
     @Value("${test.port}")
@@ -33,7 +34,8 @@ public class Sender {
     private String path;
     @Value("${test.token}")
     private String token;
-    private Receiver receiver;
+    @Value("${test.count}")
+    private String count;
 
     @Autowired
     public void setReceiver(Receiver receiver) {
@@ -41,14 +43,15 @@ public class Sender {
     }
 
     public void send(RequestObject request) {
-        if (channel == null)
-            initSender();
-        channel.writeAndFlush(makeRequest(request));
+        if (request != null) {
+            channel.writeAndFlush(makeRequest(request));
+        } else shutDown();
     }
 
-    private void initSender() {
+    public void initSender(String command) {
         Bootstrap bootstrap = new Bootstrap();
         receiver.setSender(this);
+        process = command;
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
@@ -64,6 +67,14 @@ public class Sender {
         try {
             // don't need to close the channel unless you stop the pressure test
             channel = bootstrap.connect(hostName, Integer.parseInt(port)).sync().channel();
+            // send the initial requests
+            executorGroup.execute(() -> {
+                int number = Integer.parseInt(count);
+                while (number > 0) {
+                    channel.writeAndFlush(makeRequest(null));
+                    number--;
+                }
+            });
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -71,7 +82,9 @@ public class Sender {
 
     private FullHttpRequest makeRequest(RequestObject request) {
         try {
-            ByteBuf buf = Unpooled.copiedBuffer(new ObjectMapper().writeValueAsBytes(request));
+            if (request == null)
+                request = new RequestObject(process, null, process, null);
+            ByteBuf buf = Unpooled.copiedBuffer(StateUtil.writeValueAsBytes(request));
             DefaultFullHttpRequest httpRequest = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST, new URI(path).toASCIIString(), buf);
             // Setting header is important
             httpRequest.headers().set(HttpHeaderNames.HOST, hostName);
@@ -81,9 +94,20 @@ public class Sender {
             httpRequest.headers().set(HttpHeaderNames.AUTHORIZATION, token);
             httpRequest.headers().set(HttpHeaderNames.ACCEPT_LANGUAGE, "ja");
             return httpRequest;
-        } catch (URISyntaxException | JsonProcessingException e) {
+        } catch (URISyntaxException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void shutDown() {
+        try {
+            channel.closeFuture().sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            group.shutdownGracefully();
+            executorGroup.shutdownGracefully();
         }
     }
 }

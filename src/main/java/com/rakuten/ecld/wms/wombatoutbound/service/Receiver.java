@@ -1,12 +1,9 @@
 package com.rakuten.ecld.wms.wombatoutbound.service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rakuten.ecld.wms.wombatoutbound.temp.CommandHandler;
-import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
-import com.rakuten.ecld.wms.wombatoutbound.temp.ResponseObject;
+import com.rakuten.ecld.wms.wombatoutbound.temp.*;
 import com.rakuten.ecld.wms.wombatoutbound.temp.core.Model;
 import com.rakuten.ecld.wms.wombatoutbound.temp.core.ModelRunner;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpResponse;
@@ -20,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@ChannelHandler.Sharable
 public class Receiver extends SimpleChannelInboundHandler<FullHttpResponse> implements ApplicationRunner {
     private Sender sender;
     private List<CommandHandler> commandHandlers;
@@ -34,10 +32,7 @@ public class Receiver extends SimpleChannelInboundHandler<FullHttpResponse> impl
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpResponse msg) throws Exception {
         String content = msg.content().toString(CharsetUtil.UTF_8);
-        ObjectMapper mapper = new ObjectMapper();
-        // Omit the properties that exist in json string but not in java pojo
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-        ResponseObject responseObject = mapper.readValue(content, ResponseObject.class);
+        ResponseObject responseObject = StateUtil.readValue(content, ResponseObject.class);
         RequestObject requestObject = makeRequest(responseObject);
         sender.send(requestObject);
     }
@@ -47,10 +42,11 @@ public class Receiver extends SimpleChannelInboundHandler<FullHttpResponse> impl
         request.setProcess(response.getProcess());
         request.setStep(response.getStep());
         request.setStateData(response.getStateData());
-        Model model = findModelForResponse(response);
-        if (model == null)
+        ModelState modelState = findModelForResponse(response);
+        if (modelState == null)
             throw new RuntimeException("cannot found the model for command:"+response.getProcess());
-        return new ModelRunner(request,request.getStep()).run(model);
+
+        return new ModelRunner(request,request.getStep(),modelState.getState()).run(modelState.getModel());
     }
 
     @Override
@@ -59,13 +55,14 @@ public class Receiver extends SimpleChannelInboundHandler<FullHttpResponse> impl
         ctx.close();
     }
 
-    private Model findModelForResponse(ResponseObject response){
+    private ModelState findModelForResponse(ResponseObject response){
         String command = response.getProcess();
         for (CommandHandler commandHandler:commandHandlers){
             String[] alias = commandHandler.getAlias();
+
             if (command.equals(commandHandler.getCommand()) ||
                     (alias!=null && Arrays.asList(alias).contains(command)))
-                return commandHandler.getModel();
+                return new ModelState(commandHandler.getModel(),commandHandler.generateState());
         }
         return null;
     }

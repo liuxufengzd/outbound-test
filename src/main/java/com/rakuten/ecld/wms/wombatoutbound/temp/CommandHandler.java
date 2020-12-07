@@ -1,6 +1,5 @@
 package com.rakuten.ecld.wms.wombatoutbound.temp;
 
-
 import com.rakuten.ecld.wms.wombatoutbound.temp.core.Model;
 
 public interface CommandHandler {
@@ -8,4 +7,5 @@ public interface CommandHandler {
     String[] getAlias();
     Model getModel();
     void define();
+    Object generateState();
 }
