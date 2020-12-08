@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /outbound
 
-test:
+sender:
   hostname: 127.0.0.1
   port: 8080
   uri: /outbound/api/v1/run-command

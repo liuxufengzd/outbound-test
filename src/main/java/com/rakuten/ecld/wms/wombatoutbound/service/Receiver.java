@@ -1,7 +1,6 @@
 package com.rakuten.ecld.wms.wombatoutbound.service;
 
 import com.rakuten.ecld.wms.wombatoutbound.temp.*;
-import com.rakuten.ecld.wms.wombatoutbound.temp.core.Model;
 import com.rakuten.ecld.wms.wombatoutbound.temp.core.ModelRunner;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
