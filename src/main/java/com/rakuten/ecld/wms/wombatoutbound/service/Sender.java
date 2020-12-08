@@ -1,8 +1,8 @@
 package com.rakuten.ecld.wms.wombatoutbound.service;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
-import com.rakuten.ecld.wms.wombatoutbound.temp.SenderProperties;
-import com.rakuten.ecld.wms.wombatoutbound.temp.StateUtil;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.RequestObject;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.StateUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -17,18 +17,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableConfigurationProperties(SenderProperties.class)
 public class Sender {
     private static final NioEventLoopGroup group = new NioEventLoopGroup();
     private static final EventExecutorGroup executorGroup = new DefaultEventExecutorGroup(10);
+    public static long count;
     private Channel channel;
     private String process;
     private Receiver receiver;
     private SenderProperties senderProperties;
+    private boolean counterRunning;
 
     @Autowired
     public void setReceiver(Receiver receiver) {
@@ -43,13 +47,17 @@ public class Sender {
     public void send(RequestObject request) {
         if (request != null) {
             channel.writeAndFlush(makeRequest(request));
-        } else shutDown();
+        } else if (!counterRunning) {
+            counterRunning = true;
+            printResult();
+        }
     }
 
     public void initSender(String command) {
         Bootstrap bootstrap = new Bootstrap();
         receiver.setSender(this);
         process = command;
+        InetSocketAddress socketAddress = new InetSocketAddress(senderProperties.getHostName(), senderProperties.getPort());
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
@@ -58,24 +66,30 @@ public class Sender {
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new HttpClientCodec(),
-                                new HttpObjectAggregator(512 * 1024));
-                        pipeline.addLast(executorGroup, receiver);
+                                new HttpObjectAggregator(512 * 1024), new Counter());
+                        pipeline.addLast(executorGroup,receiver);
                     }
                 });
         try {
+            count = senderProperties.getCount();
             // don't need to close the channel unless you stop the pressure test
-            channel = bootstrap.connect(senderProperties.getHostName(), senderProperties.getPort()).sync().channel();
-            // send the initial requests
-            executorGroup.execute(() -> {
-                int number = senderProperties.getCount();
-                while (number > 0) {
+            channel = bootstrap.connect(socketAddress).sync().channel();
+            // send the initial requests to server
+            executorGroup.scheduleWithFixedDelay(() -> {
+                if (count > 0) {
                     channel.writeAndFlush(makeRequest(null));
-                    number--;
+                    count--;
                 }
-            });
+            }, 0, 1000 / senderProperties.getRate(), TimeUnit.MILLISECONDS);
+            channel.closeFuture().sync();
+            System.out.println("closed");
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            group.shutdownGracefully();
+            executorGroup.shutdownGracefully();
         }
+
     }
 
     private FullHttpRequest makeRequest(RequestObject request) {
@@ -99,14 +113,21 @@ public class Sender {
         }
     }
 
-    public void shutDown() {
-        try {
-            channel.closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            group.shutdownGracefully();
-            executorGroup.shutdownGracefully();
-        }
+    private void printResult() {
+        executorGroup.scheduleWithFixedDelay(() -> {
+            long outNum = Counter.outNum.get();
+            long inNum = Counter.inNum.get();
+            System.out.println("request sent: " + outNum);
+            System.out.println("OK request received: " + inNum);
+            System.out.println("failure rate: " + (1 - inNum * 1.0 / outNum) * 100 + "%");
+            if (outNum == inNum && count == 0){
+                try {
+                    Thread.sleep(1000);
+//                    channel.close();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 1, 1, TimeUnit.SECONDS);
     }
 }

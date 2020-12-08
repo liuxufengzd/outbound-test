@@ -1,6 +1,6 @@
-package com.rakuten.ecld.wms.wombatoutbound.temp.core;
+package com.rakuten.ecld.wms.wombatoutbound.architecture.core;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.RequestObject;
 
 public class ModelRunner {
     private final String latestStepName;

@@ -7,5 +7,6 @@ sender:
   hostname: 127.0.0.1
   port: 8080
   uri: /outbound/api/v1/run-command
+  count: 100 # the total number of initial requests to send
+  rate: 5  # send initial request to server with ratio of rate/s, less than 1000
   token: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJidXNpbmVzcyI6IlJTTCIsInJvbGVDb2RlIjoiUkJfR0VORVJBTF9NQU5BR0VSIiwiaXNBZG1pbiI6ZmFsc2UsInVzZXJOYW1lIjoiU1lTIDAwMDEiLCJleHAiOjE2MDE1NDc4NzYsImNlbiI6IjMxIiwidXNlckNvZGUiOiJTWVMwMDAxIn0.umYZGGW7eLeZphdNCaYSoDbvMAK3ofrUZO-80wU_xiw
-  count: 5

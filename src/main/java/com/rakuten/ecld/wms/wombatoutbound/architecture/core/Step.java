@@ -1,6 +1,6 @@
-package com.rakuten.ecld.wms.wombatoutbound.temp.core;
+package com.rakuten.ecld.wms.wombatoutbound.architecture.core;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.StepHandler;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.StepHandler;
 
 public class Step {
     private final String stepName;

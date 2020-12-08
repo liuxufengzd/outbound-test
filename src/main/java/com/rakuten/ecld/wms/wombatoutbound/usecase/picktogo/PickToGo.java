@@ -1,8 +1,8 @@
 package com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.CommandHandler;
-import com.rakuten.ecld.wms.wombatoutbound.temp.StepHandlerFactory;
-import com.rakuten.ecld.wms.wombatoutbound.temp.core.Model;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.CommandHandler;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.StepHandlerFactory;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.core.Model;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.model.PtgState;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process.BoxLabelQuestion;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process.DeliveryQuestion;

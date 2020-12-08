@@ -1,6 +1,6 @@
-package com.rakuten.ecld.wms.wombatoutbound.temp;
+package com.rakuten.ecld.wms.wombatoutbound.architecture;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.core.Model;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.core.Model;
 
 public interface CommandHandler {
     String getCommand();

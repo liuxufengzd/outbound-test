@@ -1,4 +1,4 @@
-package com.rakuten.ecld.wms.wombatoutbound.temp;
+package com.rakuten.ecld.wms.wombatoutbound.architecture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

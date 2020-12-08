@@ -1,4 +1,4 @@
-package com.rakuten.ecld.wms.wombatoutbound.temp;
+package com.rakuten.ecld.wms.wombatoutbound.architecture;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -9,9 +9,18 @@ public class SenderProperties {
     private String uri;
     private String token;
     private int count;
+    private long rate;
 
     public void setHostName(String hostName) {
         this.hostName = hostName;
+    }
+
+    public long getRate() {
+        return rate;
+    }
+
+    public void setRate(long rate) {
+        this.rate = rate;
     }
 
     public void setPort(int port) {

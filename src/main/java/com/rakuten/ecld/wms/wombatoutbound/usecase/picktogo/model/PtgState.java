@@ -1,6 +1,6 @@
 package com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.model;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.BaseState;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.BaseState;
 import lombok.Getter;
 import lombok.Setter;
 

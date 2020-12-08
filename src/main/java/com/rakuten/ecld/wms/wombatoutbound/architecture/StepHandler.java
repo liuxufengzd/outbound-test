@@ -1,4 +1,4 @@
-package com.rakuten.ecld.wms.wombatoutbound.temp;
+package com.rakuten.ecld.wms.wombatoutbound.architecture;
 
 @FunctionalInterface
 public interface StepHandler<T> {

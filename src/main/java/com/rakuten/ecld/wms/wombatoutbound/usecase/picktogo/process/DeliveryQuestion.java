@@ -1,7 +1,7 @@
 package com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.process;
 
-import com.rakuten.ecld.wms.wombatoutbound.temp.AbstractStepHandler;
-import com.rakuten.ecld.wms.wombatoutbound.temp.RequestObject;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.AbstractStepHandler;
+import com.rakuten.ecld.wms.wombatoutbound.architecture.RequestObject;
 import com.rakuten.ecld.wms.wombatoutbound.usecase.picktogo.model.PtgState;
 import org.springframework.stereotype.Component;
 
