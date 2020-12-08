@@ -1,0 +1,45 @@
+{
+  "groups": [
+    {
+      "name": "sender",
+      "type": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "sender.count",
+      "type": "java.lang.Integer",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "sender.host-name",
+      "type": "java.lang.String",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties"
+    },
+    {
+      "name": "sender.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "sender.rate",
+      "type": "java.lang.Long",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "sender.token",
+      "type": "java.lang.String",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties"
+    },
+    {
+      "name": "sender.uri",
+      "type": "java.lang.String",
+      "sourceType": "com.rakuten.ecld.wms.wombatoutbound.architecture.SenderProperties"
+    }
+  ],
+  "hints": []
+}

@@ -30,18 +30,18 @@ public class Sender {
     public static long count;
     private Channel channel;
     private String process;
-    private Receiver receiver;
     private SenderProperties senderProperties;
     private boolean counterRunning;
-
-    @Autowired
-    public void setReceiver(Receiver receiver) {
-        this.receiver = receiver;
-    }
+    private MessageHandler messageHandler;
 
     @Autowired
     public void setSenderProperties(SenderProperties senderProperties) {
         this.senderProperties = senderProperties;
+    }
+
+    @Autowired
+    public void setMessageHandler(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
     }
 
     public void send(RequestObject request) {
@@ -55,7 +55,6 @@ public class Sender {
 
     public void initSender(String command) {
         Bootstrap bootstrap = new Bootstrap();
-        receiver.setSender(this);
         process = command;
         InetSocketAddress socketAddress = new InetSocketAddress(senderProperties.getHostName(), senderProperties.getPort());
         bootstrap.group(group)
@@ -65,24 +64,34 @@ public class Sender {
                     @Override
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
+                        Receiver receiver = new Receiver();
+                        receiver.setMessageHandler(messageHandler);
                         pipeline.addLast(new HttpClientCodec(),
-                                new HttpObjectAggregator(512 * 1024), new Counter());
-                        pipeline.addLast(executorGroup,receiver);
+                                new HttpObjectAggregator(1024 * 512 * 1024),
+                                new Counter());
+                        pipeline.addLast(executorGroup, receiver);
                     }
                 });
         try {
             count = senderProperties.getCount();
             // don't need to close the channel unless you stop the pressure test
             channel = bootstrap.connect(socketAddress).sync().channel();
+            Channel channelSender = bootstrap.connect(socketAddress).sync().channel();
             // send the initial requests to server
             executorGroup.scheduleWithFixedDelay(() -> {
                 if (count > 0) {
-                    channel.writeAndFlush(makeRequest(null));
+                    channelSender.writeAndFlush(makeRequest(null));
                     count--;
+                } else {
+                    try {
+                        channelSender.closeFuture().sync();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }, 0, 1000 / senderProperties.getRate(), TimeUnit.MILLISECONDS);
             channel.closeFuture().sync();
-            System.out.println("closed");
+            System.out.println("========closed========");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -120,14 +129,18 @@ public class Sender {
             System.out.println("request sent: " + outNum);
             System.out.println("OK request received: " + inNum);
             System.out.println("failure rate: " + (1 - inNum * 1.0 / outNum) * 100 + "%");
-            if (outNum == inNum && count == 0){
+            if (outNum == inNum && count == 0) {
                 try {
                     Thread.sleep(1000);
-//                    channel.close();
+                    channel.close();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }, 1, 1, TimeUnit.SECONDS);
+    }
+
+    private Sender getSender() {
+        return this;
     }
 }
