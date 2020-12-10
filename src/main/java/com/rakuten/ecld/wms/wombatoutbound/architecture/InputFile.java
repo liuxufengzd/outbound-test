@@ -8,7 +8,7 @@ public class InputFile {
 
     static {
         try {
-            reader = new BufferedReader(new FileReader(new File("src/main/resources/ptg.csv")));
+            reader = new BufferedReader(new FileReader(new File("src/main/resources/testdata.csv")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
