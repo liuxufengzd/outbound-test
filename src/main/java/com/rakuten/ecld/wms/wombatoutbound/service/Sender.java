@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -27,26 +27,28 @@ import java.util.concurrent.TimeUnit;
 public class Sender {
     private static final NioEventLoopGroup group = new NioEventLoopGroup();
     private static final EventExecutorGroup executorGroup = new DefaultEventExecutorGroup(10);
+    private static final Bootstrap bootstrap = new Bootstrap();
     public static long count;
-    private Channel channel;
+    private Receiver receiver;
+    private final Channel[] channels = new Channel[2];
+    private static int selectNum;
+    private int maxSendNum;
     private String process;
     private SenderProperties senderProperties;
     private boolean counterRunning;
-    private MessageHandler messageHandler;
 
     @Autowired
     public void setSenderProperties(SenderProperties senderProperties) {
         this.senderProperties = senderProperties;
     }
-
     @Autowired
-    public void setMessageHandler(MessageHandler messageHandler) {
-        this.messageHandler = messageHandler;
+    public void setReceiver(Receiver receiver) {
+        this.receiver = receiver;
     }
 
     public void send(RequestObject request) {
         if (request != null) {
-            channel.writeAndFlush(makeRequest(request));
+            sendMessage(makeRequest(request));
         } else if (!counterRunning) {
             counterRunning = true;
             printResult();
@@ -54,9 +56,7 @@ public class Sender {
     }
 
     public void initSender(String command) {
-        Bootstrap bootstrap = new Bootstrap();
         process = command;
-        InetSocketAddress socketAddress = new InetSocketAddress(senderProperties.getHostName(), senderProperties.getPort());
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
@@ -64,8 +64,6 @@ public class Sender {
                     @Override
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
-                        Receiver receiver = new Receiver();
-                        receiver.setMessageHandler(messageHandler);
                         pipeline.addLast(new HttpClientCodec(),
                                 new HttpObjectAggregator(1024 * 512 * 1024),
                                 new Counter());
@@ -74,31 +72,20 @@ public class Sender {
                 });
         try {
             count = senderProperties.getCount();
-            // don't need to close the channel unless you stop the pressure test
-            channel = bootstrap.connect(socketAddress).sync().channel();
-            Channel channelSender = bootstrap.connect(socketAddress).sync().channel();
+            channels[0]=bootstrap.connect(senderProperties.getHostName(), senderProperties.getPort()).sync().channel();
+            channels[1]=bootstrap.connect(senderProperties.getHostName(), senderProperties.getPort()).sync().channel();
             // send the initial requests to server
             executorGroup.scheduleWithFixedDelay(() -> {
                 if (count > 0) {
-                    channelSender.writeAndFlush(makeRequest(null));
+                    sendMessage(makeRequest((null)));
                     count--;
-                } else {
-                    try {
-                        channelSender.closeFuture().sync();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
-            }, 0, 1000 / senderProperties.getRate(), TimeUnit.MILLISECONDS);
-            channel.closeFuture().sync();
-            System.out.println("========closed========");
+            }, 0, 1000000 / senderProperties.getRate(), TimeUnit.MICROSECONDS);
+            channels[0].closeFuture().sync();
+            channels[1].closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            group.shutdownGracefully();
-            executorGroup.shutdownGracefully();
         }
-
     }
 
     private FullHttpRequest makeRequest(RequestObject request) {
@@ -128,19 +115,40 @@ public class Sender {
             long inNum = Counter.inNum.get();
             System.out.println("request sent: " + outNum);
             System.out.println("OK request received: " + inNum);
-            System.out.println("failure rate: " + (1 - inNum * 1.0 / outNum) * 100 + "%");
+            String percent = new DecimalFormat("0.000").format((1 - inNum * 1.0 / outNum) * 100);
+            System.out.println("failure rate: " + percent + "%");
+            System.out.println("========================");
             if (outNum == inNum && count == 0) {
                 try {
                     Thread.sleep(1000);
-                    channel.close();
+                    channels[0].close().sync();
+                    channels[1].close().sync();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                } finally {
+                    group.shutdownGracefully();
+                    executorGroup.shutdownGracefully();
+                    System.out.println("=======closed=======");
                 }
             }
         }, 1, 1, TimeUnit.SECONDS);
     }
 
-    private Sender getSender() {
-        return this;
+    private void sendMessage(FullHttpRequest request) {
+        if (maxSendNum < 50) {
+            channels[selectNum].writeAndFlush(request);
+            maxSendNum++;
+        } else {
+            executorGroup.execute(()->{
+                try {
+                    channels[selectNum] = bootstrap.connect(senderProperties.getHostName(), senderProperties.getPort()).sync().channel();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            selectNum = (selectNum + 1) % 2;
+            channels[selectNum].writeAndFlush(request);
+            maxSendNum = 1;
+        }
     }
 }
