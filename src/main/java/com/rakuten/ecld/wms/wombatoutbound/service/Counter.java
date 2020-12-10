@@ -1,12 +1,10 @@
 package com.rakuten.ecld.wms.wombatoutbound.service;
 
 import io.netty.channel.ChannelDuplexHandler;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicLong;
 
