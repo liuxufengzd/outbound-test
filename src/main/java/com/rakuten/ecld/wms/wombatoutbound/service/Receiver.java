@@ -19,7 +19,7 @@ public class Receiver extends SimpleChannelInboundHandler<FullHttpResponse> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, FullHttpResponse msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, FullHttpResponse msg) {
         String content = msg.content().toString(CharsetUtil.UTF_8);
         ResponseObject responseObject = StateUtil.readValue(content, ResponseObject.class);
         messageHandler.makeSend(responseObject);
